@@ -1,0 +1,33 @@
+# HMM+GMM on an OCELOT (Unitree Go2) sequence, offline mode.
+#
+#   python main.py --config config/ocelot_hmm_gmm.yaml
+
+schema_version: 1
+
+run:
+  name: ocelot_hmm_gmm
+  debug: true
+
+robot:
+  kinematics: go2
+
+dataset:
+  kind: ocelot
+  # Sample sequence shipped with this repo; point elsewhere for your own recordings.
+  sequence_dir: ./data/ocelot/rock/forward
+
+contact:
+  detector: gmm
+  gmm:
+    mode: offline
+    feature_fields: [est_tau_calf, v_foot_body_x, v_foot_body_y, v_foot_body_z, p_foot_body_z]
+    trans_stay: 0.99
+    random_state: 42
+
+ekf:
+  noise_config: config/ekf_noise/default.yaml
+  initialize_nominal_from_data: false
+
+output:
+  base_dir: output
+  include_timestamp: true

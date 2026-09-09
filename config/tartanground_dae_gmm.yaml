@@ -1,0 +1,37 @@
+# DAE+GMM on a TartanGround (ANYmal) sequence, using the shipped pretrained CNN encoder.
+# Swap model_dir for pretrained/tartanground/autoencoder_gru to use the GRU encoder instead.
+#
+#   python main.py --config config/tartanground_dae_gmm.yaml
+
+schema_version: 1
+
+run:
+  name: tartanground_dae_gmm
+  debug: true
+
+robot:
+  kinematics: anymal
+
+dataset:
+  kind: tartanground
+  # Sample sequence shipped with this repo; point elsewhere for your own downloads (see data/tartanground/).
+  sequence_dir: ./data/tartanground/processed/ForestEnv/P2000
+
+contact:
+  detector: autoencoder
+  autoencoder:
+    mode: offline
+    model_dir: ./pretrained/tartanground/autoencoder_cnn
+    stance_probability_threshold: 0.5
+    device: null  # null picks cuda/mps/cpu automatically
+    encode_batch_size: 256
+    gmm:
+      pretrained: true
+
+ekf:
+  noise_config: config/ekf_noise/default.yaml
+  initialize_nominal_from_data: true
+
+output:
+  base_dir: output
+  include_timestamp: true

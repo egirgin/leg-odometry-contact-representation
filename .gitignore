@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+.DS_Store
+
+# run outputs
+output*/
+
+# local data (not shipped, except the samples under data/tartanground/processed/ForestEnv/P2000/
+# and data/ocelot/rock/forward/)
+data/tartanground/anymal/
+data/tartanground/processed/*
+!data/tartanground/processed/ForestEnv/
+data/tartanground/processed/ForestEnv/*
+!data/tartanground/processed/ForestEnv/P2000/
+data/ocelot/*
+!data/ocelot/rock/
+data/ocelot/rock/*
+!data/ocelot/rock/forward/
+
+# training scratch
+leg_odom/features/precomputed_*/

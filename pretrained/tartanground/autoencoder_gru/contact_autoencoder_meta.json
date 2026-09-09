@@ -1,0 +1,62 @@
+{
+  "dataset_kind": "tartanground",
+  "instant_feature_spec_version": 3,
+  "feature_fields": [
+    "p_foot_body_z",
+    "v_foot_body_x",
+    "v_foot_body_y",
+    "v_foot_body_z",
+    "est_tau_calf"
+  ],
+  "history_length": 1,
+  "instant_dim": 5,
+  "robot_kinematics": "anymal",
+  "seed": 42,
+  "autoencoder": {
+    "encoder_type": "gru",
+    "latent_dim": 16
+  },
+  "autoencoder_model": {
+    "window_size": 1,
+    "latent_dim": 16,
+    "encoder_type": "gru",
+    "cnn": {
+      "channels": [
+        32,
+        64,
+        128
+      ],
+      "kernel_sizes": [
+        5,
+        5,
+        3
+      ],
+      "strides": [
+        2,
+        2,
+        2
+      ]
+    },
+    "gru": {
+      "hidden_dim": 64,
+      "num_layers": 1
+    },
+    "decoder": {
+      "base_channels": 128,
+      "channels": [
+        64,
+        32
+      ],
+      "kernel_sizes": [
+        3,
+        5,
+        5
+      ],
+      "strides": [
+        2,
+        2,
+        2
+      ]
+    }
+  }
+}

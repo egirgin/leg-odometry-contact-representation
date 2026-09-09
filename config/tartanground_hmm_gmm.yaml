@@ -1,0 +1,34 @@
+# HMM+GMM on a TartanGround (ANYmal) sequence, offline mode: the GMM is fit once on the
+# whole sequence before the EKF runs, so no pretrained checkpoint is needed.
+#
+#   python main.py --config config/tartanground_hmm_gmm.yaml
+
+schema_version: 1
+
+run:
+  name: tartanground_hmm_gmm
+  debug: true
+
+robot:
+  kinematics: anymal
+
+dataset:
+  kind: tartanground
+  # Sample sequence shipped with this repo; point elsewhere for your own downloads (see data/tartanground/).
+  sequence_dir: ./data/tartanground/processed/ForestEnv/P2000
+
+contact:
+  detector: gmm
+  gmm:
+    mode: offline
+    feature_fields: [est_tau_calf, v_foot_body_x, v_foot_body_y, v_foot_body_z, p_foot_body_z]
+    trans_stay: 0.99
+    random_state: 42
+
+ekf:
+  noise_config: config/ekf_noise/default.yaml
+  initialize_nominal_from_data: true
+
+output:
+  base_dir: output
+  include_timestamp: true

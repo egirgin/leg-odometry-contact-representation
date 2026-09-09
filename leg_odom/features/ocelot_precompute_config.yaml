@@ -1,0 +1,10 @@
+# Precompute instant kinematic features for OCELOT (Go2) sequences.
+#   python -m leg_odom.features.precompute_contact_instants --config leg_odom/features/ocelot_precompute_config.yaml
+
+dataset_root: ./data/ocelot
+output_root: ./leg_odom/features/precomputed_ocelot
+dataset_kind: ocelot
+robot: go2
+overwrite: false
+verbose: true
+feature_fields: [est_tau_calf, v_foot_body_x, v_foot_body_y, v_foot_body_z, p_foot_body_z]

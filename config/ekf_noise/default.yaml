@@ -1,0 +1,25 @@
+# ESEKF IMU process noise and initial P diagonal.
+# P0_diagonal order: px, py, pz, vx, vy, vz, roll, pitch, yaw (rad^2), bias_accel xyz, bias_gyro xyz.
+
+imu_noise:
+  accel_std: 0.5
+  gyro_std: 0.017453292519943295
+  accel_bias_std: 0.01
+  gyro_bias_std: 0.00017453292519943295
+
+P0_diagonal:
+  - 0.0001
+  - 0.0001
+  - 0.0001
+  - 0.25
+  - 0.25
+  - 0.25
+  - 0.007615435494667032
+  - 0.007615435494667032
+  - 0.007615435494667032
+  - 0.25
+  - 0.25
+  - 0.25
+  - 0.0003046174197866681
+  - 0.0003046174197866681
+  - 0.0003046174197866681

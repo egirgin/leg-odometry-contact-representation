@@ -1,0 +1,42 @@
+# Trains the DAE+GMM detector on TartanGround. Run precompute_contact_instants first.
+dataset:
+  kind: tartanground
+  precomputed_root: ./leg_odom/features/precomputed_tartanground
+
+output:
+  dir: ./pretrained/tartanground/autoencoder_cnn
+
+robot:
+  kinematics: anymal
+
+training:
+  epochs: 30
+  batch_size: 1024
+  learning_rate: 1.0e-3
+  train_ratio: 0.7
+  val_ratio: 0.15
+  seed: 42
+  device: null  # null picks cuda/mps/cpu automatically; set to "cpu" if you hit MPS Conv1d backward crashes
+
+model:
+  window_size: 1
+  latent_dim: 16
+  encoder_type: cnn
+  cnn:
+    channels: [32, 64, 128]
+    kernel_sizes: [5, 5, 3]
+    strides: [2, 2, 2]
+  gru:
+    hidden_dim: 64
+    num_layers: 1
+  decoder:
+    base_channels: 128
+    channels: [64, 32]
+    kernel_sizes: [3, 5, 5]
+    strides: [2, 2, 2]
+
+augmentation:
+  enabled: true
+  gaussian_noise_std: 0.01
+  scale_min: 0.98
+  scale_max: 1.02
