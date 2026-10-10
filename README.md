@@ -26,9 +26,24 @@ A sample sequence ships for each dataset (`data/tartanground/processed/ForestEnv
 to `output/output_<run.name>/...`: EKF history CSV, `plots/evaluation_metrics.csv`
 (ATE/AHE/RPE/FPE/Frechet), and `plots/trajectory.png`.
 
-For more TartanGround sequences, see [`data/tartanground/README.md`](data/tartanground/README.md).
-For OCELOT, `dataset.kind: ocelot` expects a directory with `lowstate.csv`
-(+ optional `groundtruth.csv`). **TODO: full real-world OCELOT dataset — to be added.**
+## Data
+
+**TartanGround (simulation):** see [`data/tartanground/README.md`](data/tartanground/README.md) for downloading more sequences.
+
+**OCELOT (real world):** the full dataset (Unitree Go2 on concrete, grass and rock, 10 sequences) is on
+[Zenodo](https://zenodo.org/records/23287210):
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23287210.svg)](https://doi.org/10.5281/zenodo.23287210)
+
+```bash
+wget -O corl_processed.zip "https://zenodo.org/records/23287210/files/corl_processed.zip?download=1"
+unzip corl_processed.zip
+cp -R corl_processed/. data/ocelot/ && rm -rf corl_processed corl_processed.zip
+```
+
+This gives `data/ocelot/<terrain>/<sequence>/lowstate.csv` and `groundtruth.csv`, the layout used by
+`dataset.kind: ocelot` and `leg_odom/features/ocelot_precompute_config.yaml`. To run on another sequence,
+set `dataset.sequence_dir` in `config/ocelot_*.yaml`. The dataset is released under CC BY 4.0
+(the code is MIT).
 
 ## Train your own checkpoints
 
